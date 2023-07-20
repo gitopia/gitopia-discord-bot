@@ -730,7 +730,7 @@ function connect() {
             embed.data.title
           ) {
             if (!global.subscriptions[s].channel) {
-              global.subscriptions[s].channel = client.channels.cache.get(s);
+              global.subscriptions[s].channel = bot.channels.cache.get(s);
             }
 
             global.subscriptions[s].channel.send({ embeds: [embed] });
