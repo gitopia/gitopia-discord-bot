@@ -132,8 +132,8 @@ function connect() {
               eventAttributes["RepositoryOwnerType"]
             );
 
-            let names,
-              shas = "";
+            let names = "";
+            let shas = "";
             for (let branch of branches) {
               names += `[${branch.name}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}/tree/${branch.name})\n`;
               shas += `${branch.sha}\n`;
@@ -168,8 +168,8 @@ function connect() {
               return;
             }
 
-            let names,
-              shas = "";
+            let names = "";
+            let shas = "";
             for (let branch of branches) {
               names += `${branch.name}\n`;
               shas += `${branch.sha}\n`;
@@ -214,8 +214,8 @@ function connect() {
               eventAttributes["RepositoryOwnerType"]
             );
 
-            let names,
-              shas = "";
+            let names = "";
+            let shas = "";
             for (let tag of tags) {
               names += `[${tag.name}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}/tree/${tag.name})\n`;
               shas += `${tag.sha}\n`;
@@ -250,8 +250,8 @@ function connect() {
               return;
             }
 
-            let names,
-              shas = "";
+            let names = "";
+            let shas = "";
             for (let tag of tags) {
               names += `${tag.name}\n`;
               shas += `${tag.sha}\n`;
