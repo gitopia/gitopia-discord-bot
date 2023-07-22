@@ -296,14 +296,10 @@ function connect() {
             break;
           }
           case "CreateDao": {
-            const username = await getUser(eventAttributes["Creator"]);
+            const user = await getUser(eventAttributes["Creator"]);
 
             embed
               .setTitle("New DAO created")
-              .setAuthor({
-                name: `${username}`,
-                url: `https://gitopia.com/${username}`,
-              })
               .setURL(`https://gitopia.com/${eventAttributes["DaoName"]}`)
               .setDescription(
                 `[${eventAttributes["DaoName"]}](https://gitopia.com/${eventAttributes["DaoName"]})`
@@ -314,10 +310,12 @@ function connect() {
               embed.setThumbnail(`${eventAttributes["AvatarUrl"]}`);
             }
 
+            setEmbedAuthor(embed, user);
+
             break;
           }
           case "CreateRepository": {
-            const username = await getUser(eventAttributes["Creator"]);
+            const user = await getUser(eventAttributes["Creator"]);
 
             const repoOwnerName = await resolveAddress(
               eventAttributes["RepositoryOwnerId"],
@@ -329,14 +327,12 @@ function connect() {
               .setURL(
                 `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`
               )
-              .setAuthor({
-                name: `${username}`,
-                url: `https://gitopia.com/${username}`,
-              })
               .setDescription(
                 `[${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`
               )
               .setTimestamp();
+
+            setEmbedAuthor(embed, user);
 
             break;
           }
@@ -591,7 +587,7 @@ function connect() {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
                 eventAttributes["ParentRepositoryId"]
               );
-              const username = await getUser(eventAttributes["Creator"]);
+              const user = await getUser(eventAttributes["Creator"]);
 
               const forkedRepoOwnerName = await resolveAddress(
                 eventAttributes["RepositoryOwnerId"],
@@ -685,7 +681,7 @@ function connect() {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
                 eventAttributes["RepositoryId"]
               );
-              const username = await getUser(eventAttributes["Creator"]);
+              const user = await getUser(eventAttributes["Creator"]);
 
               embed
                 .setTitle("Bounty closed")
