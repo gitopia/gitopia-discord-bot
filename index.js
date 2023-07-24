@@ -632,7 +632,7 @@ function connect() {
                   `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${eventAttributes["RepositoryName"]} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`
+                  `[${repoOwnerName}/${repositoryName} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`
                 )
                 .addFields(
                   { name: "Denom", value: denoms, inline: true },
@@ -660,7 +660,7 @@ function connect() {
                   `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${eventAttributes["RepositoryName"]} ${
+                  `[${repoOwnerName}/${repositoryName} ${
                     eventAttributes["BountyParentIid"]
                   }](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${
                     eventAttributes["BountyParentIid"]
@@ -689,7 +689,7 @@ function connect() {
                   `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${eventAttributes["RepositoryName"]} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`
+                  `[${repoOwnerName}/${repositoryName} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`
                 )
                 .setTimestamp();
 
