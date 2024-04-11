@@ -8,6 +8,8 @@ Discord bot for pushing gitopia activities to discord channel
 DISCORD_BOT_TOKEN
 CLIENT_ID
 GUILD_ID
+GITOPIA_API_URL
+WS_ADDR
 ```
 
 ## Usage
