@@ -3,7 +3,6 @@ const fs = require("node:fs");
 const path = require("node:path");
 const Discord = require("discord.js");
 const WebSocket = require("ws");
-const { WS_ADDR } = require("./config");
 const {
   getUser,
   resolveAddress,
@@ -62,7 +61,7 @@ bot.login(process.env.DISCORD_BOT_TOKEN);
 
 function connect() {
   // Connect to a WebSocket server
-  ws = new WebSocket(WS_ADDR);
+  ws = new WebSocket(process.env.WS_ADDR);
 
   ws.on("open", () => {
     console.log("Connected to WebSocket server");
@@ -721,7 +720,7 @@ function connect() {
             break;
           }
           default:
-            console.log(`Unsupported action ${eventAttributes["action"]}`);
+          // console.log(`Unsupported action ${eventAttributes["action"]}`);
         }
 
         const keysToCheck = ["RepositoryOwnerId", "RepositoryOwnerType"];
