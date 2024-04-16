@@ -3,7 +3,6 @@ const fs = require("node:fs");
 const path = require("node:path");
 const Discord = require("discord.js");
 const WebSocket = require("ws");
-const { WS_ADDR } = require("./config");
 const {
   getUser,
   resolveAddress,
@@ -37,7 +36,7 @@ for (const folder of commandFolders) {
       bot.commands.set(command.data.name, command);
     } else {
       console.log(
-        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
+        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
       );
     }
   }
@@ -62,7 +61,7 @@ bot.login(process.env.DISCORD_BOT_TOKEN);
 
 function connect() {
   // Connect to a WebSocket server
-  ws = new WebSocket(WS_ADDR);
+  ws = new WebSocket(process.env.WS_ADDR);
 
   ws.on("open", () => {
     console.log("Connected to WebSocket server");
@@ -72,7 +71,7 @@ function connect() {
         params: { query: "tm.event='Tx'" },
         id: 1,
         jsonrpc: "2.0",
-      }),
+      })
     );
   });
 
@@ -129,7 +128,7 @@ function connect() {
 
             const repoOwnerName = await resolveAddress(
               eventAttributes["RepositoryOwnerId"],
-              eventAttributes["RepositoryOwnerType"],
+              eventAttributes["RepositoryOwnerType"]
             );
 
             let names = "";
@@ -142,14 +141,14 @@ function connect() {
             embed
               .setTitle("Repository branches updated")
               .setURL(
-                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`,
+                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`
               )
               .setDescription(
-                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`,
+                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`
               )
               .addFields(
                 { name: "Name", value: names, inline: true },
-                { name: "Sha", value: shas, inline: true },
+                { name: "Sha", value: shas, inline: true }
               )
               .setTimestamp();
 
@@ -177,20 +176,20 @@ function connect() {
 
             const repoOwnerName = await resolveAddress(
               eventAttributes["RepositoryOwnerId"],
-              eventAttributes["RepositoryOwnerType"],
+              eventAttributes["RepositoryOwnerType"]
             );
 
             embed
               .setTitle("Repository branches deleted")
               .setURL(
-                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`,
+                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`
               )
               .setDescription(
-                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`,
+                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`
               )
               .addFields(
                 { name: "Name", value: names, inline: true },
-                { name: "Sha", value: shas, inline: true },
+                { name: "Sha", value: shas, inline: true }
               )
               .setTimestamp();
 
@@ -211,7 +210,7 @@ function connect() {
 
             const repoOwnerName = await resolveAddress(
               eventAttributes["RepositoryOwnerId"],
-              eventAttributes["RepositoryOwnerType"],
+              eventAttributes["RepositoryOwnerType"]
             );
 
             let names = "";
@@ -224,14 +223,14 @@ function connect() {
             embed
               .setTitle("Repository tags updated")
               .setURL(
-                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`,
+                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`
               )
               .setDescription(
-                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`,
+                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`
               )
               .addFields(
                 { name: "Name", value: names, inline: true },
-                { name: "Sha", value: shas, inline: true },
+                { name: "Sha", value: shas, inline: true }
               )
               .setTimestamp();
 
@@ -259,20 +258,20 @@ function connect() {
 
             const repoOwnerName = await resolveAddress(
               eventAttributes["RepositoryOwnerId"],
-              eventAttributes["RepositoryOwnerType"],
+              eventAttributes["RepositoryOwnerType"]
             );
 
             embed
               .setTitle("Repository tags deleted")
               .setURL(
-                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`,
+                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`
               )
               .setDescription(
-                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`,
+                `[${repoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`
               )
               .addFields(
                 { name: "Name", value: names, inline: true },
-                { name: "Sha", value: shas, inline: true },
+                { name: "Sha", value: shas, inline: true }
               )
               .setTimestamp();
 
@@ -284,7 +283,7 @@ function connect() {
             embed
               .setTitle("New user created")
               .setDescription(
-                `[${eventAttributes["UserUsername"]}](https://gitopia.com/${eventAttributes["UserUsername"]})`,
+                `[${eventAttributes["UserUsername"]}](https://gitopia.com/${eventAttributes["UserUsername"]})`
               )
               .setURL(`https://gitopia.com/${eventAttributes["UserUsername"]}`)
               .setTimestamp();
@@ -302,7 +301,7 @@ function connect() {
               .setTitle("New DAO created")
               .setURL(`https://gitopia.com/${eventAttributes["DaoName"]}`)
               .setDescription(
-                `[${eventAttributes["DaoName"]}](https://gitopia.com/${eventAttributes["DaoName"]})`,
+                `[${eventAttributes["DaoName"]}](https://gitopia.com/${eventAttributes["DaoName"]})`
               )
               .setTimestamp();
 
@@ -319,16 +318,16 @@ function connect() {
 
             const repoOwnerName = await resolveAddress(
               eventAttributes["RepositoryOwnerId"],
-              eventAttributes["RepositoryOwnerType"],
+              eventAttributes["RepositoryOwnerType"]
             );
 
             embed
               .setTitle("New repository created")
               .setURL(
-                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`,
+                `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}`
               )
               .setDescription(
-                `[${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`,
+                `[${eventAttributes["RepositoryName"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]})`
               )
               .setTimestamp();
 
@@ -339,17 +338,17 @@ function connect() {
           case "CreateIssue": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               embed
                 .setTitle("New issue created")
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]}`
                 )
                 .setDescription(
-                  `[#${eventAttributes["IssueIid"]} ${eventAttributes["IssueTitle"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`,
+                  `[#${eventAttributes["IssueIid"]} ${eventAttributes["IssueTitle"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`
                 )
                 .setTimestamp();
 
@@ -362,7 +361,7 @@ function connect() {
           case "AddIssueAssignees": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
@@ -375,14 +374,14 @@ function connect() {
               embed
                 .setTitle(`Issue assigned`)
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]}`
                 )
                 .setDescription(
                   `[${repoOwnerName}/${repositoryName} #${
                     eventAttributes["IssueIid"]
                   }](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${
                     eventAttributes["IssueIid"]
-                  })\nAssignees: ${assignees.slice(0, -2)}`,
+                  })\nAssignees: ${assignees.slice(0, -2)}`
                 )
                 .setTimestamp();
 
@@ -395,7 +394,7 @@ function connect() {
           case "ToggleIssueState": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
@@ -412,10 +411,10 @@ function connect() {
 
               embed
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${repositoryName} #${eventAttributes["IssueIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`,
+                  `[${repoOwnerName}/${repositoryName} #${eventAttributes["IssueIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`
                 )
                 .setTimestamp();
 
@@ -428,17 +427,17 @@ function connect() {
           case "CreatePullRequest": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               embed
                 .setTitle("New PR created")
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`
                 )
                 .setDescription(
-                  `[#${eventAttributes["PullRequestIid"]} ${eventAttributes["PullRequestTitle"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]})`,
+                  `[#${eventAttributes["PullRequestIid"]} ${eventAttributes["PullRequestTitle"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]})`
                 )
                 .setTimestamp();
 
@@ -451,13 +450,13 @@ function connect() {
           case "AddPullRequestReviewers": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               let reviewers = "";
               for (let reviewer of JSON.parse(
-                eventAttributes["PullRequestReviewers"],
+                eventAttributes["PullRequestReviewers"]
               )) {
                 const reviewer = await getUser(reviewer);
                 reviewers += `<https://gitopia.com/${reviewer.username}|${reviewer.username}>, `;
@@ -466,14 +465,14 @@ function connect() {
               embed
                 .setTitle(`PR reviewers added`)
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`
                 )
                 .setDescription(
                   `[${repoOwnerName}/${repositoryName} #${
                     eventAttributes["PullRequestIid"]
                   }](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${
                     eventAttributes["PullRequestIid"]
-                  })\nReviewers: ${reviewers.slice(0, -2)}`,
+                  })\nReviewers: ${reviewers.slice(0, -2)}`
                 )
                 .setTimestamp();
 
@@ -486,14 +485,14 @@ function connect() {
           case "SetPullRequestState": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               switch (eventAttributes["PullRequestState"]) {
                 case "MERGED": {
                   const headRepo = JSON.parse(
-                    eventAttributes["PullRequestHead"],
+                    eventAttributes["PullRequestHead"]
                   );
 
                   const {
@@ -501,7 +500,7 @@ function connect() {
                     repositoryName: headRepositoryName,
                   } = await getRepoDetails(headRepo.repositoryId);
                   const baseRepoBranch = JSON.parse(
-                    eventAttributes["RepositoryBranch"],
+                    eventAttributes["RepositoryBranch"]
                   );
 
                   embed.setTitle("PR merged");
@@ -516,10 +515,10 @@ function connect() {
 
               embed
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}/pulls/${eventAttributes["PullRequestIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}/pulls/${eventAttributes["PullRequestIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${eventAttributes["RepositoryName"]} #${eventAttributes["PullRequestIid"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}/pulls/${eventAttributes["PullRequestIid"]})`,
+                  `[${repoOwnerName}/${eventAttributes["RepositoryName"]} #${eventAttributes["PullRequestIid"]}](https://gitopia.com/${repoOwnerName}/${eventAttributes["RepositoryName"]}/pulls/${eventAttributes["PullRequestIid"]})`
                 )
                 .setTimestamp();
 
@@ -532,17 +531,17 @@ function connect() {
           case "LinkPullRequestIssueByIid": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               embed
                 .setTitle(`Issue linked to PR`)
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${repositoryName} #${eventAttributes["PullRequestIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]})\nIssue: [#${eventAttributes["IssueIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`,
+                  `[${repoOwnerName}/${repositoryName} #${eventAttributes["PullRequestIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]})\nIssue: [#${eventAttributes["IssueIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`
                 )
                 .setTimestamp();
 
@@ -555,17 +554,17 @@ function connect() {
           case "UnlinkPullRequestIssueByIid": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               embed
                 .setTitle(`Issue unlinked from PR`)
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${repositoryName} #${eventAttributes["PullRequestIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]})\nIssue: [#${eventAttributes["IssueIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`,
+                  `[${repoOwnerName}/${repositoryName} #${eventAttributes["PullRequestIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/pulls/${eventAttributes["PullRequestIid"]})\nIssue: [#${eventAttributes["IssueIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["IssueIid"]})`
                 )
                 .setTimestamp();
 
@@ -578,7 +577,7 @@ function connect() {
           case "CreateComment": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
@@ -590,10 +589,10 @@ function connect() {
               embed
                 .setTitle("New user comment")
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/${urlPath}/${eventAttributes["CommentParentIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/${urlPath}/${eventAttributes["CommentParentIid"]}`
                 )
                 .setDescription(
-                  `[${user.username}](https://gitopia.com/${user.username}) commented: "${eventAttributes["CommentBody"]}" on [${repoOwnerName}/${repositoryName} #${eventAttributes["CommentParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/${urlPath}/${eventAttributes["CommentParentIid"]})`,
+                  `[${user.username}](https://gitopia.com/${user.username}) commented: "${eventAttributes["CommentBody"]}" on [${repoOwnerName}/${repositoryName} #${eventAttributes["CommentParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/${urlPath}/${eventAttributes["CommentParentIid"]})`
                 )
                 .setTimestamp();
 
@@ -606,22 +605,22 @@ function connect() {
           case "ForkRepository": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["ParentRepositoryId"],
+                eventAttributes["ParentRepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               const forkedRepoOwnerName = await resolveAddress(
                 eventAttributes["RepositoryOwnerId"],
-                eventAttributes["RepositoryOwnerType"],
+                eventAttributes["RepositoryOwnerType"]
               );
 
               embed
                 .setTitle(`Repository forked`)
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${repositoryName}](https://gitopia.com/${repoOwnerName}/${repositoryName})\nFork repo: [${forkedRepoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${forkedRepoOwnerName}/${eventAttributes["RepositoryName"]})`,
+                  `[${repoOwnerName}/${repositoryName}](https://gitopia.com/${repoOwnerName}/${repositoryName})\nFork repo: [${forkedRepoOwnerName}/${eventAttributes["RepositoryName"]}](https://gitopia.com/${forkedRepoOwnerName}/${eventAttributes["RepositoryName"]})`
                 )
                 .setTimestamp();
 
@@ -634,7 +633,7 @@ function connect() {
           case "CreateBounty": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
@@ -650,14 +649,14 @@ function connect() {
               embed
                 .setTitle("New bounty added")
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${repositoryName} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`,
+                  `[${repoOwnerName}/${repositoryName} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`
                 )
                 .addFields(
                   { name: "Denom", value: denoms, inline: true },
-                  { name: "Amount", value: amounts, inline: true },
+                  { name: "Amount", value: amounts, inline: true }
                 )
                 .setTimestamp();
 
@@ -670,7 +669,7 @@ function connect() {
           case "UpdateBountyExpiry": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
               const expiry = new Date(eventAttributes["BountyExpiry"] * 1000);
@@ -678,7 +677,7 @@ function connect() {
               embed
                 .setTitle("Bounty expiry extended")
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`
                 )
                 .setDescription(
                   `[${repoOwnerName}/${repositoryName} ${
@@ -687,7 +686,7 @@ function connect() {
                     eventAttributes["BountyParentIid"]
                   })\nNew expiry: ${expiry.toLocaleDateString()}\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${
                     eventAttributes["BountyParentIid"]
-                  }|#${eventAttributes["BountyParentIid"]}/bounties)`,
+                  }|#${eventAttributes["BountyParentIid"]}/bounties)`
                 )
                 .setTimestamp();
 
@@ -700,17 +699,17 @@ function connect() {
           case "CloseBounty": {
             try {
               const { repoOwnerName, repositoryName } = await getRepoDetails(
-                eventAttributes["RepositoryId"],
+                eventAttributes["RepositoryId"]
               );
               const user = await getUser(eventAttributes["Creator"]);
 
               embed
                 .setTitle("Bounty closed")
                 .setURL(
-                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`,
+                  `https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}`
                 )
                 .setDescription(
-                  `[${repoOwnerName}/${repositoryName} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`,
+                  `[${repoOwnerName}/${repositoryName} ${eventAttributes["BountyParentIid"]}](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]})\n[Bounties](https://gitopia.com/${repoOwnerName}/${repositoryName}/issues/${eventAttributes["BountyParentIid"]}|#${eventAttributes["BountyParentIid"]}/bounties)`
                 )
                 .setTimestamp();
 
@@ -721,19 +720,19 @@ function connect() {
             break;
           }
           default:
-            console.log(`Unsupported action ${eventAttributes["action"]}`);
+          // console.log(`Unsupported action ${eventAttributes["action"]}`);
         }
 
         const keysToCheck = ["RepositoryOwnerId", "RepositoryOwnerType"];
         const keysExist = keysToCheck.every((key) =>
-          eventAttributes.hasOwnProperty(key),
+          eventAttributes.hasOwnProperty(key)
         );
 
         let repoOwnerName = "";
         if (keysExist) {
           repoOwnerName = await resolveAddress(
             eventAttributes["RepositoryOwnerId"],
-            eventAttributes["RepositoryOwnerType"],
+            eventAttributes["RepositoryOwnerType"]
           );
         }
 
@@ -742,7 +741,7 @@ function connect() {
             global.subscriptions[s].subscriptions.some(
               (item) =>
                 item === "*" ||
-                item.toLowerCase() === repoOwnerName.toLowerCase(),
+                item.toLowerCase() === repoOwnerName.toLowerCase()
             ) &&
             embed.data.title
           ) {
@@ -764,7 +763,7 @@ function connect() {
 
   ws.on("close", (code, reason) => {
     console.log(
-      `WebSocket connection closed. Code: ${code}, Reason: ${reason}`,
+      `WebSocket connection closed. Code: ${code}, Reason: ${reason}`
     );
     setTimeout(connect, 1000);
   });
